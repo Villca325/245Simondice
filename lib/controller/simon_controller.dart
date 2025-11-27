@@ -1,120 +1,137 @@
-import 'dart:async';
-import 'dart:math';
+import 'dart:async'; // Necesario para los retrasos (Future.delayed)
+import 'dart:math'; // Necesario para el generador de números aleatorios (Random)
 import 'package:flutter/material.dart';
 
-enum GameState { idle, showingSequence, input, gameOver }
+// ESTADOS DEL JUEGO
+enum GameState {
+  idle, // El juego está quieto esperando "Iniciar"
+  showingSequence, // La CPU está mostrando las luces
+  input, // Es el turno del jugador
+  gameOver, // El jugador perdió
+}
 
 class SimonController extends ChangeNotifier {
-  // --- ESTADO DEL JUEGO ---
-  GameState _state = GameState.idle;
+  // --- VARIABLES DE MEMORIA
 
-  // LA "PILA" DE MEMORIA (Stack)
-  // Almacena la secuencia correcta. Dart usa List, que funciona como Stack.
-  // Métodos: .add() es como PUSH.
-  List<int> _sequenceStack = [];
+  // 1. La lista maestra de colores que Simón ha inventado hasta ahora.
+  // Es como una pila de platos: cada ronda agregamos uno encima.
+  List<int> _listaDeColoresCorrectos = [];
 
-  // Puntero para saber en qué paso de la pila va el usuario
-  int _userCurrentStep = 0;
+  // 2. ¿En qué paso va el usuario actualmente?
+  // Si la lista tiene 5 colores, el usuario empieza en el paso 0, luego 1, etc.
+  int _pasoActualDelUsuario = 0;
 
-  int _score = 0;
+  // 3. Puntaje y Estado general
+  int _puntaje = 0;
+  GameState _estado = GameState.idle;
 
-  // Controla qué botón brilla (-1 significa ninguno)
-  int _activeLightIndex = -1;
+  // 4. ¿Qué luz está encendida AHORA MISMO? (-1 significa "todas apagadas")
+  // Esto es lo único que la Vista necesita mirar para saber qué dibujar.
+  int _luzEncendida = -1;
 
-  // --- GETTERS (Para que la Vista lea) ---
-  GameState get state => _state;
-  List<int> get sequence => _sequenceStack; // Opcional, para debug
-  int get score => _score;
-  int get activeLightIndex => _activeLightIndex;
+  // --- GETTERS (La Ventanilla de Información) ---
+  // La Vista usa esto para leer los datos sin poder modificarlos directamente.
+  GameState get state => _estado;
+  int get score => _puntaje;
+  int get activeLightIndex =>
+      _luzEncendida; // La vista pregunta: "¿Quién brilla?"
 
-  // --- LÓGICA ---
+  // --- FUNCIONES DEL JUEGO (La Lógica) ---
 
-  // 1. Iniciar Juego: Limpiamos la pila
+  // PASO 1: Empezar desde cero
   void startGame() {
-    _sequenceStack.clear();
-    _score = 0;
-    _state = GameState.idle;
-    notifyListeners();
-    _nextRound();
+    _listaDeColoresCorrectos.clear(); // Borramos la memoria
+    _puntaje = 0;
+    _estado = GameState.idle;
+    notifyListeners(); // ¡Avisar a la vista!
+
+    // Arrancamos la primera ronda
+    _siguienteRonda();
   }
 
-  // 2. Nueva Ronda: Apilamos (Push) un nuevo color
-  Future<void> _nextRound() async {
-    _state = GameState.showingSequence;
-    _userCurrentStep = 0; // Reseteamos el puntero del usuario
+  // PASO 2: Preparar la nueva ronda (Agregar un color más)
+  Future<void> _siguienteRonda() async {
+    _estado = GameState.showingSequence; // Estado de mostrar secuencia
+    _pasoActualDelUsuario = 0; // Reiniciamos el contador del usuario
     notifyListeners();
 
-    // LÓGICA DE PILA: Hacemos PUSH de un nuevo color aleatorio (0 al 3)
-    // 0: Rojo, 1: Verde, 2: Azul, 3: Amarillo
-    _sequenceStack.add(Random().nextInt(4));
+    // LÓGICA DE PILA (STACK): Agregamos un nuevo color aleatorio a la cima.
+    // Genera un número entre 0 y 3 (0:Verde, 1:Rojo, 2:Azul, 3:Amarillo)
+    int nuevoColor = Random().nextInt(4);
+    _listaDeColoresCorrectos.add(nuevoColor);
 
-    // Pequeña pausa antes de mostrar
+    // Esperamos 1 segundo antes de empezar a mostrar para que no sea brusco
     await Future.delayed(const Duration(seconds: 1));
 
-    // Reproducimos toda la pila actual
-    await _playSequence();
+    // Reproducimos toda la lista de memoria para que el usuario la vea
+    await _reproducirSecuencia();
 
-    // Habilitamos al usuario
-    _state = GameState.input;
+    // ¡Listo! Ahora es turno del humano
+    _estado = GameState.input;
     notifyListeners();
   }
 
-  // 3. Reproducir Secuencia: Recorre la pila y enciende luces
-  Future<void> _playSequence() async {
-    for (int colorIndex in _sequenceStack) {
-      // Encender
-      _activeLightIndex = colorIndex;
-      notifyListeners();
+  // PASO 3: El Show de Luces (Recorre la lista y enciende bombillas)
+  Future<void> _reproducirSecuencia() async {
+    // Recorremos cada color guardado en la memoria
+    for (int color in _listaDeColoresCorrectos) {
+      // A) Encender luz
+      _luzEncendida = color;
+      notifyListeners(); // ¡Vista, dibuja el color brillante!
 
-      // Esperar encendido
+      // B) Esperar medio segundo con la luz prendida
       await Future.delayed(const Duration(milliseconds: 500));
 
-      // Apagar
-      _activeLightIndex = -1;
-      notifyListeners();
+      // C) Apagar luz
+      _luzEncendida = -1;
+      notifyListeners(); // ¡Vista, apaga todo!
 
-      // Pausa entre luces
+      // D) Pequeña pausa antes del siguiente color
       await Future.delayed(const Duration(milliseconds: 250));
     }
   }
 
-  // 4. Input del Usuario: Validar contra la pila
+  // PASO 4: El usuario toca un botón
+  void handleInput(int botonTocado) async {
+    // Si no es el turno del usuario, ignoramos el toque (protección)
+    if (_estado != GameState.input) return;
 
-  //error al tocar mas veces de la cuenta
-  void handleInput(int buttonIndex) async {
-    // Si no es turno del usuario, ignoramos
-    if (_state != GameState.input) return;
+    // Efecto visual: Hacemos parpadear el botón que tocó el usuario
+    _parpadearBoton(botonTocado);
 
-    // Feedback visual (Flash rápido al tocar)
-    _flashButton(buttonIndex);
+    // --- VALIDACIÓN CENTRAL ---
 
-    // VALIDACIÓN:
-    // Comparamos el botón tocado con el valor en la pila en la posición actual
-    if (buttonIndex == _sequenceStack[_userCurrentStep]) {
-      // ¡Correcto! Avanzamos el puntero
-      _userCurrentStep++;
+    // Pregunta: ¿El botón que tocó es IGUAL al que dice la memoria en este paso?
+    int colorCorrecto = _listaDeColoresCorrectos[_pasoActualDelUsuario];
 
-      // ¿Llegamos al final de la pila?
-      if (_userCurrentStep == _sequenceStack.length) {
-        _score++;
+    if (botonTocado == colorCorrecto) {
+      // ¡BIEN! El usuario acertó este color.
+      _pasoActualDelUsuario++; // Avanzamos al siguiente escalón
+
+      // Pregunta: ¿Ya terminó toda la secuencia de esta ronda?
+      if (_pasoActualDelUsuario == _listaDeColoresCorrectos.length) {
+        // ¡Ronda completada!
+        _puntaje++;
         notifyListeners();
-        // Siguiente ronda después de un respiro
+
+        // Esperamos un momento y lanzamos la siguiente ronda más difícil
         await Future.delayed(const Duration(milliseconds: 1000));
-        _nextRound();
+        _siguienteRonda();
       }
     } else {
-      // ¡Incorrecto! Game Over
-      _state = GameState.gameOver;
+      // ¡MAL! Se equivocó.
+      _estado = GameState.gameOver;
       notifyListeners();
+      // Aquí el juego se detiene hasta que presionen "Iniciar Juego" de nuevo.
     }
   }
 
-  // Helper para efecto visual al tocar
-  Future<void> _flashButton(int index) async {
-    _activeLightIndex = index;
+  // Función auxiliar solo para efectos visuales rápidos
+  Future<void> _parpadearBoton(int indice) async {
+    _luzEncendida = indice;
     notifyListeners();
     await Future.delayed(const Duration(milliseconds: 150));
-    _activeLightIndex = -1;
+    _luzEncendida = -1;
     notifyListeners();
   }
 }
