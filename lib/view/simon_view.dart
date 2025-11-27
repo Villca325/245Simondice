@@ -78,6 +78,13 @@ class SimonView extends StatelessWidget {
               ),
               child: const Text("INICIAR JUEGO"),
             ),
+          ElevatedButton.icon(
+            icon: const Icon(Icons.info_outline),
+            label: const Text("Sobre manadaCorps"),
+            onPressed: () {
+              Navigator.pushNamed(context, '/devs');
+            },
+          ),
         ],
       ),
     );
