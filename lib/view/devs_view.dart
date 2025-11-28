@@ -20,7 +20,7 @@ class DevsView extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F5F5),
       body: Column(
         children: [
-          // --- 1. HEADER PERSONALIZADO ---
+          // --- 1. HEADER ---
           Container(
             padding: const EdgeInsets.only(
               top: 50,
@@ -30,7 +30,7 @@ class DevsView extends StatelessWidget {
             ),
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFF2C2C2C), // Color oscuro del encabezado
+              color: Color(0xFF2C2C2C),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30),
@@ -39,7 +39,6 @@ class DevsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Fila para el Botón Atrás (MANUAL)
                 Row(
                   children: [
                     IconButton(
@@ -79,10 +78,10 @@ class DevsView extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemCount: _developers.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 Columnas
-                  crossAxisSpacing: 15, // Espacio horizontal
-                  mainAxisSpacing: 15, // Espacio vertical
-                  childAspectRatio: 3.75, // Proporción (Más alto que ancho)
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  childAspectRatio: 3.75, // Proporción
                 ),
                 itemBuilder: (context, index) {
                   final dev = _developers[index];
