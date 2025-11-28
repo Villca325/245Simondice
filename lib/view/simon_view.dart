@@ -12,7 +12,7 @@ class SimonView extends StatelessWidget {
     ); //conectamos al controller
 
     return Scaffold(
-      backgroundColor: Colors.black, // Fondo negro
+      backgroundColor: const Color.fromARGB(255, 240, 240, 240),
       appBar: AppBar(title: const Text("Simón Dice")),
 
       //  PRINCIPAL
@@ -21,15 +21,15 @@ class SimonView extends StatelessWidget {
         children: [
           Text(
             "Puntaje: ${controller.score}", // Leemos el puntaje del controller
-            style: const TextStyle(color: Colors.white, fontSize: 30),
+            style: const TextStyle(color: Colors.black, fontSize: 30),
           ),
 
           const SizedBox(height: 20), // Espacio
           Text(
             controller.state == GameState.gameOver
                 ? "¡PERDISTE!"
-                : "Sigue la luz...",
-            style: const TextStyle(color: Colors.grey, fontSize: 20),
+                : "App nivel básico de ",
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
 
           const SizedBox(height: 40),
@@ -67,7 +67,7 @@ class SimonView extends StatelessWidget {
           // --- PARTE C: Botón de Jugar ---
           // Solo se muestra si NO estamos jugando actualmente
           if (controller.state == GameState.idle ||
-              controller.state == GameState.gameOver)
+              controller.state == GameState.gameOver) ...[
             ElevatedButton(
               onPressed: () {
                 // Le ordenamos al controller que inicie
@@ -78,13 +78,21 @@ class SimonView extends StatelessWidget {
               ),
               child: const Text("INICIAR JUEGO"),
             ),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.info_outline),
-            label: const Text("Sobre manadaCorps"),
-            onPressed: () {
-              Navigator.pushNamed(context, '/devs');
-            },
-          ),
+
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.info_outline),
+              label: const Text("Sobre manadaCorps"),
+              onPressed: () {
+                Navigator.pushNamed(context, '/devs');
+              },
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "ManadaCorps © 2024 \n Todos los derechos reservados.",
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
+            ),
+          ],
         ],
       ),
     );
