@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simondice_proy/view/switch.dart';
 
 class DevsView extends StatelessWidget {
   const DevsView({super.key});
@@ -16,8 +18,9 @@ class DevsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palanca =  Provider.of<ControladorPalanca>(context);
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
       body: Column(
         children: [
           // --- 1. HEADER ---
@@ -88,8 +91,8 @@ class DevsView extends StatelessWidget {
 
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      color: colorContenedorSegunModo(palanca.modoOscuro),
+                      borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.05),
@@ -147,13 +150,13 @@ class DevsView extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           // Número / ID
-                          Text(
+                         /* Text(
                             dev['id']!,
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.grey[500],
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                     ),
@@ -165,5 +168,17 @@ class DevsView extends StatelessWidget {
         ],
       ),
     );
+  }
+  Color mostrarColorDeFondo(bool valor){
+      if(valor == true)
+        return Color.fromARGB(255, 0, 0, 0);
+      else
+        return Color.fromARGB(255, 245, 245, 245);
+  }
+  Color colorContenedorSegunModo(bool valor){
+    if(valor == true)
+      return Color.fromARGB(255,230, 230, 230);
+    else
+      return Color.fromARGB(255, 255, 255, 255);
   }
 }

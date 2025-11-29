@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simondice_proy/view/switch.dart';
 
 // Importamos las vistas
 import 'controller/simon_controller.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => SimonController())],
+      providers: [ChangeNotifierProvider(create: (_) => Controlador()),
+      ChangeNotifierProvider(create: (_) => ControladorPalanca())],
       child: MaterialApp(
         title: 'Juegos Mentales',
         debugShowCheckedModeBanner: false,
