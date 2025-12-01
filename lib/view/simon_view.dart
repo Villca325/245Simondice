@@ -28,10 +28,8 @@ class SimonView extends StatelessWidget {
 
 
     return Scaffold(
-      //titulo
       backgroundColor: mostrarColorDeFondo(modoOscuro),
-      // appBar: AppBar(title: const Text("Simón Dice")),
-      // PRINCIPAL
+
       body: SingleChildScrollView(
         child: Column(
         
@@ -46,17 +44,13 @@ class SimonView extends StatelessWidget {
             const SizedBox(height: 20),
         
         
-            // --- PARTE B: El Tablero de 4 Botones ---
-            // En lugar de una cuadrícula automática, usamos Filas (Rows) manuales.
-        
+
             // FILA DE ARRIBA (Verde y Rojo)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Botón 0: Verde
                 _botonDeColor(context, 1, Colors.green),
                 const SizedBox(width: 10),
-                // Botón 1: Rojo
                 _botonDeColor(context, 2, Colors.red),
               ],
             ),
@@ -65,23 +59,18 @@ class SimonView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Botón 2: Azul (Nota: ajusté el orden para que cuadre visualmente)
                 _botonDeColor(context, 3, Colors.blue),
                 const SizedBox(width: 10),
-                // Botón 3: Amarillo
                 _botonDeColor(context, 4, Colors.yellow),
         
               ],
             ),
             const SizedBox(height: 50),
         
-            // --- PARTE C: Botón de Jugar ---
-            // Solo se muestra si NO estamos jugando actualmente
-        
+
             if (controlador.estado == estados.espera || controlador.estado == estados.terminado) ...[
               ElevatedButton(
                 onPressed: () {
-                  // Le ordenamos al controller que inicie
                   controlador.iniciarJuego();
                 },
                 style: ElevatedButton.styleFrom(
@@ -136,13 +125,9 @@ class SimonView extends StatelessWidget {
 
   }
 
-  // --- PARTE D: La Fábrica de Botones ---
-  // Esta función crea un cuadradito de color.
-  // Recibe: el "contexto", el "número del botón" (0,1,2,3) y su "color base".
 
 
   Widget _botonDeColor(BuildContext context, int numeroBoton,  Color colorBase ){
-    // Volvemos a pedir el controller para saber si ESTE botón debe brillar
     final controlador = Provider.of<Controlador>(context);
 
 

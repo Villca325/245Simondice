@@ -8,19 +8,18 @@ class RulesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final palanca=Provider.of<ControladorPalanca>(context);
     return Scaffold(
-      backgroundColor: mostrarColorDeFondo(palanca.modoOscuro), // Fondo oscuro
+      backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
       appBar: AppBar(
         title: const Text('Cómo Jugar'),
         backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
         foregroundColor: mostrarColorTexto(palanca.modoOscuro),
-        // NOTA: Flutter agrega automáticamente la flecha de atrás aquí
-        // si vienes de otra pantalla.
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment:
-              CrossAxisAlignment.start, // Alinear texto a la izquierda
+              CrossAxisAlignment.start,
           children: [
             Text(
               'Reglas de Simón Dice',
@@ -32,7 +31,7 @@ class RulesView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Lista de Reglas
+
             _buildRuleItem(
               1,
               "Memoriza la secuencia de colores que se iluminan.", context
@@ -44,8 +43,7 @@ class RulesView extends StatelessWidget {
             _buildRuleItem(3, "La secuencia se hace más larga en cada ronda.",context),
             _buildRuleItem(4, "Si te equivocas una vez, ¡Pierdes!",context),
 
-            const Spacer(), // Empuja el botón hacia abajo
-            // --- BOTÓN PERSONALIZADO DE ATRÁS ---
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -57,7 +55,7 @@ class RulesView extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                 ),
                 onPressed: () {
-                  // LÓGICA DEL BOTÓN ATRÁS
+
                   Navigator.pop(context);
                 },
               ),
@@ -68,7 +66,7 @@ class RulesView extends StatelessWidget {
     );
   }
 
-  // Helper para dibujar cada regla bonita
+
   Widget _buildRuleItem(int number, String text, BuildContext context) {
     final palanca=Provider.of<ControladorPalanca>(context);
     return Padding(

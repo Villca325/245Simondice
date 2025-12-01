@@ -9,11 +9,7 @@ enum estados{
    introducir,
    terminado,
  }
-/*
-*   Future<void> _siguienteRonda() async {
-*   notifyListeners();
-*   await Future.delayed(const Duration(seconds: 1));
-* */
+
  class Controlador extends ChangeNotifier{
    // ATRIBUTOS
    estados _estado = estados.espera;

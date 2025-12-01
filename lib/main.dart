@@ -6,7 +6,7 @@ import 'package:simondice_proy/controller/switch.dart';
 // Importamos las vistas
 import 'controller/simon_controller.dart';
 import 'view/simon_view.dart';
-import 'view/devs_view.dart'; // Importamos
+import 'view/devs_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,12 +29,9 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
 
-        // --- SISTEMA DE RUTAS ---
 
-        // 1. Ruta Inicial: ¿Qué pantalla se abre primero?
         initialRoute: '/',
 
-        // 2. Tabla de Rutas: Nombres -> Pantallas
         routes: {
           '/': (context) => const SimonView(),
           '/devs': (context) => const DevsView(),

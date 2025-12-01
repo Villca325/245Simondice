@@ -5,16 +5,6 @@ import 'package:simondice_proy/controller/switch.dart';
 class DevsView extends StatelessWidget {
   const DevsView({super.key});
 
-  // Lista actualizada para manejar RUTAS DE IMÁGENES en lugar de colores
-  // Asegúrate de agregar los archivos en tu carpeta assets/images/
-  final List<Map<String, String>> _developers = const [
-    {'name': 'Eliseo Condori', 'id': '51', 'image': 'assets/eliseo.png'},
-    {'name': 'Joel Fernando', 'id': '67', 'image': 'assets/joel.png'},
-    {'name': 'Hernan Laruta', 'id': '83', 'image': 'assets/hernan.png'},
-    {'name': 'Dylan Salazar', 'id': '156', 'image': 'assets/dylan.png'},
-    {'name': 'Franco Villavicencio', 'id': '173', 'image': 'assets/franco.png'},
-    {'name': 'Randol Armando', 'id': '174', 'image': 'assets/randol.png'},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +13,7 @@ class DevsView extends StatelessWidget {
       backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
       body: Column(
         children: [
-          // --- 1. HEADER ---
+
           Container(
             padding: const EdgeInsets.only(
               top: 50,
@@ -195,61 +185,7 @@ class DevsView extends StatelessWidget {
 
           ),
 
-          // --- 2. GRID DE TARJETAS ---
-          /*Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: GridView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: _developers.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 3.75, // Proporción
-                ),
-                itemBuilder: (context, index) {
-                  final dev = _developers[index];
 
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: colorContenedorSegunModo(palanca.modoOscuro),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          // Nombre
-                          Text(
-                            dev['name']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: Colors.black87,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),*/
         ],
       ),
     );
