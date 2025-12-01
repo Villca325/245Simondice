@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simondice_proy/controller/switch.dart';
 
 class RulesView extends StatelessWidget {
   const RulesView({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final palanca=Provider.of<ControladorPalanca>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[900], // Fondo oscuro
+      backgroundColor: mostrarColorDeFondo(palanca.modoOscuro), // Fondo oscuro
       appBar: AppBar(
         title: const Text('Cómo Jugar'),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
+        backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
+        foregroundColor: mostrarColorTexto(palanca.modoOscuro),
         // NOTA: Flutter agrega automáticamente la flecha de atrás aquí
         // si vienes de otra pantalla.
       ),
@@ -20,10 +22,10 @@ class RulesView extends StatelessWidget {
           crossAxisAlignment:
               CrossAxisAlignment.start, // Alinear texto a la izquierda
           children: [
-            const Text(
+            Text(
               'Reglas de Simón Dice',
               style: TextStyle(
-                color: Colors.white,
+                color: mostrarColorTexto(palanca.modoOscuro),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -33,14 +35,14 @@ class RulesView extends StatelessWidget {
             // Lista de Reglas
             _buildRuleItem(
               1,
-              "Memoriza la secuencia de colores que se iluminan.",
+              "Memoriza la secuencia de colores que se iluminan.", context
             ),
             _buildRuleItem(
               2,
-              "Repite la secuencia tocando los botones en el mismo orden.",
+              "Repite la secuencia tocando los botones en el mismo orden.", context
             ),
-            _buildRuleItem(3, "La secuencia se hace más larga en cada ronda."),
-            _buildRuleItem(4, "Si te equivocas una vez, ¡Pierdes!"),
+            _buildRuleItem(3, "La secuencia se hace más larga en cada ronda.",context),
+            _buildRuleItem(4, "Si te equivocas una vez, ¡Pierdes!",context),
 
             const Spacer(), // Empuja el botón hacia abajo
             // --- BOTÓN PERSONALIZADO DE ATRÁS ---
@@ -50,8 +52,8 @@ class RulesView extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back),
                 label: const Text("ENTENDIDO, VOLVER AL MENÚ"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  foregroundColor: Colors.white,
+                  backgroundColor: mostrarColorDeFondo(palanca.modoOscuro),
+                  foregroundColor: mostrarColorTexto(palanca.modoOscuro),
                   padding: const EdgeInsets.all(15),
                 ),
                 onPressed: () {
@@ -67,7 +69,8 @@ class RulesView extends StatelessWidget {
   }
 
   // Helper para dibujar cada regla bonita
-  Widget _buildRuleItem(int number, String text) {
+  Widget _buildRuleItem(int number, String text, BuildContext context) {
+    final palanca=Provider.of<ControladorPalanca>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -75,21 +78,33 @@ class RulesView extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 12,
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: mostrarColorDeFondo(!palanca.modoOscuro),
             child: Text(
               "$number",
-              style: const TextStyle(fontSize: 12, color: Colors.white),
+              style: TextStyle(fontSize: 12, color: mostrarColorTexto(!palanca.modoOscuro)),
             ),
           ),
           const SizedBox(width: 15),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white70, fontSize: 16),
+              style: TextStyle(color: mostrarColorTexto(palanca.modoOscuro), fontSize: 16),
             ),
           ),
         ],
       ),
     );
+  }
+  Color mostrarColorDeFondo(bool valor){
+      if(valor == true)
+        return Color.fromARGB(255, 0, 0, 0);
+      else
+        return Color.fromARGB(255, 245, 245, 245);
+  }
+  Color mostrarColorTexto(bool valor){
+    if(valor == true)
+      return Color.fromARGB(255,245, 245, 245);
+    else
+      return Color.fromARGB(255, 0, 0, 0);
   }
 }

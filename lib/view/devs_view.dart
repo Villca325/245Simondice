@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simondice_proy/view/switch.dart';
+import 'package:simondice_proy/controller/switch.dart';
 
 class DevsView extends StatelessWidget {
   const DevsView({super.key});

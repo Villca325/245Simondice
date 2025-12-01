@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simondice_proy/view/switch.dart';
+import 'package:simondice_proy/controller/switch.dart';
 import '../controller/simon_controller.dart';
 
 class SimonView extends StatelessWidget {
@@ -18,20 +18,7 @@ class SimonView extends StatelessWidget {
           showDialog(context: context,  builder: (context) {
             return AlertDialog(
               title: Text('Te equivocaste!'),
-              content: Text('Puntaje conseguido: ${controlador.puntaje}\n¿Quieres jugar de nuevo?'),
-              actions: [
-                TextButton(
-                  child: Text('Cancelar'),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                TextButton(
-                  child: Text('Reiniciar'),
-                  onPressed: () {
-                    controlador.iniciarJuego();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+              content: Text('Puntaje conseguido: ${controlador.puntaje}'),
             );
           },
           );
@@ -109,6 +96,14 @@ class SimonView extends StatelessWidget {
                 label: const Text("Sobre manadaCorps", style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   Navigator.pushNamed(context, '/devs');
+                },
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 24),
+                label: const Text("Reglas", style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/rules');
                 },
               ),
               const SizedBox(height: 40),

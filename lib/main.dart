@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simondice_proy/view/switch.dart';
+import 'package:simondice_proy/view/rules_view.dart';
+import 'package:simondice_proy/controller/switch.dart';
 
 // Importamos las vistas
 import 'controller/simon_controller.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
         // 2. Tabla de Rutas: Nombres -> Pantallas
         routes: {
           '/': (context) => const SimonView(),
-          '/devs': (context) => const DevsView(), // <--- NUEVA RUTA REGISTRADA
+          '/devs': (context) => const DevsView(),
+          '/rules': (context) => const RulesView(),
         },
       ),
     );
