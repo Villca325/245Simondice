@@ -72,9 +72,131 @@ class DevsView extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 5),
+          Column(
+            children:[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                    width: 190,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255,230, 230, 230),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: const Text("Eliseo Condori\n programador",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                ),
+                SizedBox(width: 5),
+                Container(
+                  alignment: Alignment.center,
+                  width: 190,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255,230, 230, 230),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: const Text("Joel Flores\nUI Designer",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),),
+                )
+              ]
+            ),
+              SizedBox(height: 10),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 190,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255,230, 230, 230),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: const Text("Hernan Laruta\n Desarrollador",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                    ),
+                    SizedBox(width: 5),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 190,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255,230, 230, 230),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: const Text("Dylan Salazar\n Desarrollador",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                    )
+                  ]
+
+              ),
+              SizedBox(height: 10),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 190,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255,230, 230, 230),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: const Text("Franco Villavicencio\n   \t Desarrollador",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                    ),
+                    SizedBox(width: 5),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 190,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255,230, 230, 230),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: const Text("Randol Villca\nDesarrollador",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                    )
+                  ]
+
+              ),
+            ]
+
+
+          ),
 
           // --- 2. GRID DE TARJETAS ---
-          Expanded(
+          /*Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: GridView.builder(
@@ -106,37 +228,7 @@ class DevsView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // --- IMAGEN ---
 
-                          /*
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.asset(
-                                dev['image']!,
-                                fit: BoxFit
-                                    .cover, // La imagen llena el espacio sin deformarse
-                                width: double.infinity,
-                                // ESTO ES IMPORTANTE:
-                                // Si no encuentra la imagen (ej. aún no la suben), muestra un ícono gris.
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.grey[300],
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 50,
-                                      color: Colors.grey[500],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 12),
-                          */
                           // Nombre
                           Text(
                             dev['name']!,
@@ -149,14 +241,7 @@ class DevsView extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 4),
-                          // Número / ID
-                         /* Text(
-                            dev['id']!,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[500],
-                            ),
-                          ),*/
+
                         ],
                       ),
                     ),
@@ -164,11 +249,12 @@ class DevsView extends StatelessWidget {
                 },
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );
   }
+
   Color mostrarColorDeFondo(bool valor){
       if(valor == true)
         return Color.fromARGB(255, 0, 0, 0);
