@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const SimonView(),
           '/devs': (context) => const DevsView(),
-          '/rules': (context) => RulesView(),
+          '/rules': (context) => const RulesView(),
         },
       ),
     );
