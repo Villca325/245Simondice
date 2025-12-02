@@ -71,7 +71,7 @@ class DevsView extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.center,
-                    width: 190,
+                    width: 170,
                     height: 60,
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255,230, 230, 230),
@@ -87,7 +87,7 @@ class DevsView extends StatelessWidget {
                 SizedBox(width: 5),
                 Container(
                   alignment: Alignment.center,
-                  width: 190,
+                  width: 170,
                   height: 60,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255,230, 230, 230),
@@ -109,7 +109,7 @@ class DevsView extends StatelessWidget {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      width: 190,
+                      width: 170,
                       height: 60,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255,230, 230, 230),
@@ -125,7 +125,7 @@ class DevsView extends StatelessWidget {
                     SizedBox(width: 5),
                     Container(
                       alignment: Alignment.center,
-                      width: 190,
+                      width: 170,
                       height: 60,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255,230, 230, 230),
@@ -148,7 +148,7 @@ class DevsView extends StatelessWidget {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      width: 190,
+                      width: (MediaQuery.of(context).size.width>1080)? 190:170,
                       height: 60,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255,230, 230, 230),
@@ -164,7 +164,7 @@ class DevsView extends StatelessWidget {
                     SizedBox(width: 5),
                     Container(
                       alignment: Alignment.center,
-                      width: 190,
+                      width: 170,
                       height: 60,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255,230, 230, 230),

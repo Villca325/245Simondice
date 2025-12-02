@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simondice_proy/view/rules_view.dart';
 import 'package:simondice_proy/controller/switch.dart';
-
-// Importamos las vistas
 import 'controller/simon_controller.dart';
 import 'view/simon_view.dart';
 import 'view/devs_view.dart';
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const SimonView(),
           '/devs': (context) => const DevsView(),
-          '/rules': (context) => const RulesView(),
+          '/rules': (context) => RulesView(),
         },
       ),
     );
